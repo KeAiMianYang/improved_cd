@@ -5,7 +5,12 @@ fi
 go(){
 		shortcuts=~/.shortcuts/
 		if [ $# -eq 0 ]; then
-				echo "$0 [-r] <shorcut>"
+				echo "$0 <shorcut>"
+				echo "  go to the shortcut given"
+				echo "$0 -r <shorcut>"
+				echo "  remove the shortcut given"
+				echo "$0 -l"
+				echo "  list the shortcuts"
 		elif [ $1 = "-l" ]; then
 				ls -o $shortcuts
 		elif [ $1 = "-r" ]; then
@@ -25,14 +30,22 @@ go(){
 goadd(){
 		shortcuts=~/.shortcuts/
 		if [ $# -eq 0 ]; then
-				echo "$0 <folder_to_link> <shortcut>"
+				echo "$0 [<folder to link>] <shortcut name>"
+				echo "  if no folder to link is given, the current folder is used"
 		else
+				pathname=$1
+				linkname=$2
+				if [ $# -eq 1 ]; then
+						pathname=.
+						linkname=$1
+				fi
+
 				# if the first character of the folder to link is "~" or "/"
 				if [ ${1:0:1} = "~" -o ${1:0:1} = "/" ]; then
-						path=$1
+						realpath=$pathname
 						#ln -s $1 $shortcuts$2
 				else
-						path=`pwd`/$1
+						realpath=`pwd`/$pathname
 				fi
 #				if [[ "$2" == */* ]]; then
 #						echo "val $2"
@@ -53,7 +66,7 @@ goadd(){
 #
 #						done
 				#fi
-				ln -s "$path" "$shortcuts$2"
+				ln -s "$realpath" "$shortcuts$linkname"
 		fi
 }
 						#IFS='/' read -ra array <<< $2
