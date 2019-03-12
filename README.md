@@ -11,7 +11,7 @@ A `cd` with the completion giving the full path to the current directory instead
 
 ## install
 ### Zsh
-'''sh
+```sh
 # Bash completion
 autoload bashcompinit
 bashcompinit
@@ -20,4 +20,4 @@ bashcompinit
 source /home/damianyang/Script/go.sh
 source /home/damianyang/Script/up.sh
 source /home/damianyang/Script/fcd.sh
-'''
+```
